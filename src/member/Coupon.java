@@ -16,8 +16,8 @@ public class Coupon {
     }
 
 
-    public void setCouponDiscountPolicy(CouponDisountPolicy couponDiscountPolicy) {
-        this.couponDiscountPolicy = couponDiscountPolicy;
+    public CouponDisountPolicy getCouponDiscountPolicy() {
+        return this.couponDiscountPolicy;
     }
 
     public Money getDiscountPrice(Product product){

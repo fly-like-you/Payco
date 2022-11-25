@@ -26,4 +26,8 @@ public class Product {
 
         return price.minus(coupon.getDiscountPrice(this));
     }
+    @Override
+    public String toString(){
+        return "상품 이름: " + name;
+    }
 }

@@ -17,7 +17,9 @@ public class Selling {
     public void getSellInfo(){
         System.out.println("price.toString() = " + price.toString());
     }
-
+    public String toString(){
+        return "회원번호: "+member.getId() + "\n 결제 가격: "+price.toString() + "\n\n가맹점 정보:" + franchises.toString();
+    }
 
 
 

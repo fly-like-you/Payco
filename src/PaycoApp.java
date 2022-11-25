@@ -5,12 +5,11 @@ import domain.Franchises;
 import domain.Money;
 import domain.Product;
 import domain.Selling;
-import member.Coupon;
+import domain.Coupon;
 import member.Member;
 
 import purchase.Cash;
 import purchase.Credit;
-import purchase.Payment;
 import purchase.Point;
 
 import java.math.BigDecimal;
@@ -40,14 +39,11 @@ public class PaycoApp {
         Franchises franchises = new Franchises("씨유", product, 0.1);
 
 
-//        Selling selling = franchises.sell(member);
-//        selling.getSellInfo();
-//        System.out.println("point = " + point.toString());
 
         while(true){
             System.out.println("Payco App");
             Scanner scanner = new Scanner(System.in);
-            System.out.println("1: 잔액 충전\n2: 쿠폰 받기\n3: 결제하기\n 4: 잔액 조회\n5: 결제 내역 조회\n6: 앱 종료");
+            System.out.println("1: 잔액 충전 2 : 쿠폰 받기 3: 결제하기 4: 잔액 조회 6: 앱 종료");
             int cmd = scanner.nextInt();
             switch (cmd){
                 case 1:
@@ -56,6 +52,10 @@ public class PaycoApp {
                     int num = scanner.nextInt();
                     System.out.println("충전할 금액을 입력하세요");
                     int charge = scanner.nextInt();
+                    if( num < 1 || num > 3 || charge < 0 || charge > 1000000000){
+                        System.out.println("잘못된 입력입니다. 처음으로 돌아갑니다.");
+                        break;
+                    }
 
                     if(num == 1) {
                         member.setSelected(credit);
@@ -73,16 +73,28 @@ public class PaycoApp {
                     System.out.println("쿠폰종류를 선택하세요");
                     System.out.println("1: 고정 할인 쿠폰\n2: 비율 할인 쿠폰");
                     num = scanner.nextInt();
-
+                    if( num < 1 || num > 3 ){
+                        System.out.println("잘못된 입력입니다. 처음으로 돌아갑니다.");
+                        break;
+                    }
                     if(num == 1){
                         System.out.println("쿠폰의 할인 값을 적어주세요");
                         int discount = scanner.nextInt();
                         member.addCoupon(new Coupon(new CouponFixedDiscount(
                                 new Money(new BigDecimal(discount)))));
+                        if(discount < 0 ){
+                            System.out.println("잘못된 입력입니다. 처음으로 돌아갑니다.");
+                            break;
+                        }
                     } else if (num == 2) {
                         System.out.println("쿠폰의 할인 비율을 적어주세요(소수점)");
                         double discount = scanner.nextDouble();
+                        if(discount < 0 || discount > 1 ){
+                            System.out.println("잘못된 입력입니다. 처음으로 돌아갑니다.");
+                            break;
+                        }
                         member.addCoupon(new Coupon(new CouponPercentDiscount(discount)));
+
                     }
                     break;
                 case 3:
@@ -105,35 +117,20 @@ public class PaycoApp {
                     }
                     System.out.println("쿠폰은 자동으로 사용됩니다.");
                     Selling sellInfo = franchises.sell(member);
-                    System.out.println("구매내역");
+                    System.out.println("/*****************구매내역*****************/");
                     System.out.println(sellInfo.toString());
 
                     break;
-                case 4: checkBalance(); break;
-                case 5: checkPayList(); break;
-                case 6: return;
+                case 4:
+                    System.out.println("카드 잔액: " + member.getCreditAmount() + "\n포인트 잔액: " + member.getPointAmount() + "\n현금 잔액: " + member.getCashAmount());
+                    break;
+                case 6:
+                    System.out.println("앱을 종료합니다");
+                    return;
             }
         }
     }
-    static private void chargeBalance(Member member){
 
-
-    }
-    private static void checkPayList() {
-
-    }
-
-    private static void checkBalance() {
-
-    }
-
-    private static void purcharse() {
-
-    }
-
-    private static void makeCoupon() {
-        makeCoupon();
-    }
 
 
 

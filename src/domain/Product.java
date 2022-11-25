@@ -1,9 +1,5 @@
 package domain;
 
-import discount.CouponDisountPolicy;
-import member.Coupon;
-import member.Member;
-
 public class Product {
 
 

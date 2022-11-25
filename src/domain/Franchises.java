@@ -1,10 +1,6 @@
 package domain;
 
-import domain.Money;
-import member.Coupon;
 import member.Member;
-
-import java.time.LocalDateTime;
 
 public class Franchises {
 
@@ -30,6 +26,7 @@ public class Franchises {
         Money price = calculatePrice(coupon);
 
         member.pay(this, price);
+
         return new Selling(member, this, price);
     }
     public Product getProduct() {
@@ -45,7 +42,7 @@ public class Franchises {
     }
     @Override
     public String toString(){
-        return "가맹점 상호명: " + storeName + "\n 구매 상품 이름: " + product.toString() + "\n 가맹점 적립 비율: "+ this.getPercent();
+        return "상호명: " + storeName +  "\n가맹점 적립 비율: "+ this.getPercent();
     }
 
 }

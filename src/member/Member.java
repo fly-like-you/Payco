@@ -1,6 +1,7 @@
 package member;
 
 import discount.CouponNoneDiscount;
+import domain.Coupon;
 import domain.Franchises;
 import domain.Money;
 import purchase.Cash;
@@ -28,9 +29,6 @@ public class Member {
     public boolean couponFull(){
         return !(this.coupon.getCouponDiscountPolicy() instanceof  CouponNoneDiscount);
     }
-    public void addCoupon(Coupon coupon){
-        this.coupon = coupon;
-    }
 
     public Coupon useCoupon() {
         Coupon coupon = this.coupon;
@@ -38,18 +36,28 @@ public class Member {
         return coupon;
     }
 
+    public void pay(Franchises franchises, Money money){
+        selected.usePaymentAmount(franchises, money);
+        point.savePointsAmount(franchises,money);
+    }
+
+    public void deposit(Money price){
+        selected.depositPaymentAmount(price);
+    }
+
+
+    /* getter setter */
+    public void addCoupon(Coupon coupon){
+        this.coupon = coupon;
+    }
+    public Coupon getCoupon(){
+        return this.coupon;
+    }
     public void setSelected(Payment payment){
         this.selected = payment;
     }
     public Payment getSelected(){
         return this.selected;
-    }
-    public void pay(Franchises franchises, Money money){
-        selected.usePaymentAmount(franchises, money);
-        point.savePointsAmount(franchises,money);
-    }
-    public void deposit(Money price){
-        selected.depositPaymentAmount(price);
     }
     public Long getId() {
         return id;

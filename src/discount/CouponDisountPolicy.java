@@ -2,8 +2,6 @@ package discount;
 
 import domain.Money;
 import domain.Product;
-import member.Coupon;
-import member.Member;
 
 public interface CouponDisountPolicy {
     /**
